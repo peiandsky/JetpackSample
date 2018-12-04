@@ -15,10 +15,11 @@ import com.zlcdgroup.jetpacksample.ui.index.gold.GoldFragment
 import com.zlcdgroup.jetpacksample.ui.index.idcrad.IdcardFragment
 import com.zlcdgroup.jetpacksample.ui.index.ip.IpFragment
 import com.zlcdgroup.jetpacksample.ui.index.lottery.LotteryFragment
-import com.zlcdgroup.jetpacksample.ui.index.news.NewsListFragment
+import com.zlcdgroup.jetpacksample.ui.index.news.NewsListNaviActivity
 import com.zlcdgroup.jetpacksample.ui.index.rate.RateFragment
 import kotlinx.android.synthetic.main.index_activity.*
 import org.jetbrains.anko.find
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.textResource
 import org.jetbrains.anko.toast
 
@@ -53,8 +54,8 @@ class IndexActivity : BaseActivity() {
 
             when (item.itemId) {
                 R.id.nav_news -> {
-                    fragment = NewsListFragment.newInstance()
-                    toolBarTitle.textResource = R.string.menu_news
+                    startActivity<NewsListNaviActivity>()
+                    return@setNavigationItemSelectedListener true
                 }
                 R.id.nav_book -> {
                     fragment = BookListFragment.newInstance()

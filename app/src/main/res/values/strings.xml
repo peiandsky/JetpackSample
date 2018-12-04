@@ -39,5 +39,9 @@
     <string name="news_keji">科技</string>
     <string name="news_caijing">财经</string>
     <string name="news_shishang">时尚</string>
+    <string name="title_activity_news_list_navi">NewsListNaviActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 </resources>

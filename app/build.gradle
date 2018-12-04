@@ -18,6 +18,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
     }
 
     dexOptions { javaMaxHeapSize "4g" }
@@ -66,6 +67,7 @@ android {
     dataBinding {
         enabled = true
     }
+
 
 }
 
@@ -126,7 +128,6 @@ dependencies {
     //multidex
     implementation 'androidx.multidex:multidex:2.0.0'
 
-
     //paging
     implementation 'androidx.paging:paging-common:2.0.0'
     implementation 'androidx.paging:paging-runtime:2.0.0'
@@ -146,7 +147,6 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
-
 
     //ui
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
