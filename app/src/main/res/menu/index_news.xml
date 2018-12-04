@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:showIn="navigation_view">
+
+
+    <item
+            android:id="@+id/news_toutiao"
+            android:icon="@drawable/ic_menu_share"
+            android:title="@string/news_toutiao"/>
+    <item
+            android:id="@+id/news_shehui"
+            android:icon="@drawable/ic_menu_send"
+            android:title="@string/news_shehui"/>
+    <item
+            android:id="@+id/news_guonei"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/news_guonei"/>
+    <item
+            android:id="@+id/news_guoji"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/news_guoji"/>
+    <item
+            android:id="@+id/news_yule"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/news_yule"/>
+
+    <item
+            android:id="@+id/news_tiyu"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/news_tiyu"/>
+
+    <item
+            android:id="@+id/news_junshi"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/news_junshi"/>
+
+    <item
+            android:id="@+id/news_keji"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/news_keji"/>
+
+    <item
+            android:id="@+id/news_caijing"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/news_caijing"/>
+    <item
+            android:id="@+id/news_shishang"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/news_shishang"/>
+
+
+</menu>

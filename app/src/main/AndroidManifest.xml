@@ -24,11 +24,9 @@
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
-
         <activity
                 android:name=".ui.login.LoginActivity"
                 android:screenOrientation="portrait"/>
-
         <activity
                 android:name=".ui.index.IndexActivity"
                 android:label="@string/title_activity_index"
@@ -39,11 +37,21 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.zlcdgroup.jetpacksample.app.BaseActivity"/>
         </activity>
-
-
-        <activity android:name=".ui.index.news.NewsDetailActivity"
-                  android:screenOrientation="portrait"/>
-
+        <activity
+                android:name=".ui.index.news.NewsDetailActivity"
+                android:screenOrientation="portrait"/>
+        <activity android:name=".ui.index.book.BookListActivity" android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.index.idcrad.IDCardActivity" android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.index.lottery.LotteryActivity" android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.index.gold.GoldActivity" android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.index.rate.RateActivity" android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.index.ip.IpActivity" android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

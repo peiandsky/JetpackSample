@@ -3,7 +3,6 @@ package com.zlcdgroup.jetpacksample.ui.login
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
-import com.readystatesoftware.chuck.internal.ui.MainActivity
 import com.zlcdgroup.jetpacksample.R
 
 import com.zlcdgroup.jetpacksample.app.BaseActivity

@@ -6,11 +6,20 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.zlcdgroup.jetpacksample.R
 import com.zlcdgroup.jetpacksample.app.BaseActivity
 import com.zlcdgroup.jetpacksample.app.util.PreferenceUtil
+import com.zlcdgroup.jetpacksample.ui.index.book.BookListFragment
+import com.zlcdgroup.jetpacksample.ui.index.gold.GoldFragment
+import com.zlcdgroup.jetpacksample.ui.index.idcrad.IdcardFragment
+import com.zlcdgroup.jetpacksample.ui.index.ip.IpFragment
+import com.zlcdgroup.jetpacksample.ui.index.lottery.LotteryFragment
+import com.zlcdgroup.jetpacksample.ui.index.news.NewsListFragment
+import com.zlcdgroup.jetpacksample.ui.index.rate.RateFragment
 import kotlinx.android.synthetic.main.index_activity.*
 import org.jetbrains.anko.find
+import org.jetbrains.anko.textResource
 import org.jetbrains.anko.toast
 
 /**
@@ -39,28 +48,46 @@ class IndexActivity : BaseActivity() {
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener { item ->
+
+            var fragment: Fragment? = null
+
             when (item.itemId) {
                 R.id.nav_news -> {
+                    fragment = NewsListFragment.newInstance()
+                    toolBarTitle.textResource = R.string.menu_news
                 }
                 R.id.nav_book -> {
-
+                    fragment = BookListFragment.newInstance()
+                    toolBarTitle.textResource = R.string.menu_book
                 }
                 R.id.nav_idcard -> {
-
+                    fragment = IdcardFragment.newInstance()
+                    toolBarTitle.textResource = R.string.menu_idcard
                 }
                 R.id.nav_lottery -> {
-
+                    fragment = LotteryFragment.newInstance()
+                    toolBarTitle.textResource = R.string.menu_lottery
                 }
                 R.id.nav_gold -> {
-
+                    fragment = GoldFragment.newInstance()
+                    toolBarTitle.textResource = R.string.menu_gold
                 }
                 R.id.nav_rate -> {
-
+                    fragment = RateFragment.newInstance()
+                    toolBarTitle.textResource = R.string.menu_rate
                 }
                 R.id.nav_ip -> {
-
+                    fragment = IpFragment.newInstance()
+                    toolBarTitle.textResource = R.string.menu_ip
                 }
             }
+
+            fragment?.let {
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.fragmentContainer, fragment)
+                transaction.commit()
+            }
+
             drawerLayout.closeDrawer(GravityCompat.START)
             return@setNavigationItemSelectedListener true
         }

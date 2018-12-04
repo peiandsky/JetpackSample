@@ -29,5 +29,15 @@
     <string name="menu_gold">黄金数据</string>
     <string name="menu_rate">汇率数据</string>
     <string name="menu_ip">IP查询</string>
+    <string name="news_toutiao">头条</string>
+    <string name="news_shehui">社会</string>
+    <string name="news_guonei">国内</string>
+    <string name="news_guoji">国际</string>
+    <string name="news_yule">娱乐</string>
+    <string name="news_tiyu">体育</string>
+    <string name="news_junshi">军事</string>
+    <string name="news_keji">科技</string>
+    <string name="news_caijing">财经</string>
+    <string name="news_shishang">时尚</string>
 
 </resources>

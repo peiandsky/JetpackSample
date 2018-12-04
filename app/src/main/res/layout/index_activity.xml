@@ -26,14 +26,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="?attr/colorPrimary"
-                    app:popupTheme="@style/AppTheme.PopupOverlay"/>
+                    app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <TextView
+                        android:id="@+id/toolBarTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text=""/>
+
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <FrameLayout
+                android:id="@+id/fragmentContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:context=".ui.index.IndexActivity"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -41,6 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
+                android:visibility="gone"
                 android:layout_margin="@dimen/fab_margin"
                 app:srcCompat="@android:drawable/ic_dialog_email"/>
 
