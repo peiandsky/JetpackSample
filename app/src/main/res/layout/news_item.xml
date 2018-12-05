@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable name="news" type="com.zlcdgroup.jetpacksample.ui.index.news.data.NewsData"/>
+    </data>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent">
+        <ImageView
+                android:src="@color/white"
+                android:layout_width="50dp"
+                android:id="@+id/newsThumbnail"
+                setImageUrl="@{news.thumbnail_pic_s}"
+                android:layout_height="50dp"/>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/newsTitle"
+                      android:text="@{news.title}"
+                      android:textStyle="normal"
+                      android:textColor="@color/black"/>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                <TextView android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/newsAuthor"
+                          android:layout_weight="1"
+                          android:text="@{news.author_name}"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/newsCategory"
+                          android:text="@{news.category}"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/news_navi_graph"
-            app:startDestination="@+id/newslist">
-    <fragment android:id="@+id/newslist"
-              android:name="com.zlcdgroup.jetpacksample.ui.index.news.NewsListFragment"
-              android:label="@string/news_title">
-        <action android:id="@+id/action_newslist_to_newsDetailFragment"
-                app:destination="@id/newsDetailFragment"
-                app:enterAnim="@anim/popup_enter"
-                app:exitAnim="@anim/popup_exit"
-                app:popUpTo="@id/newsDetailFragment"
-                app:launchSingleTop="true"/>
-    </fragment>
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/news_navi_graph"
+            app:startDestination="@id/newsDetailFragment">
     <fragment android:id="@+id/newsDetailFragment"
               android:name="com.zlcdgroup.jetpacksample.ui.index.news.NewsDetailFragment"
               android:label="NewsDetailFragment">
         <argument app:argType="string" android:name="newsUrl"/>
     </fragment>
+    <fragment android:id="@+id/ipFragment" android:name="com.zlcdgroup.jetpacksample.ui.index.ip.IpFragment"
+              android:label="ip_fragment" tools:layout="@layout/ip_fragment"/>
+    <fragment android:id="@+id/rateFragment" android:name="com.zlcdgroup.jetpacksample.ui.index.rate.RateFragment"
+              android:label="rate_fragment" tools:layout="@layout/rate_fragment"/>
+    <fragment android:id="@+id/goldFragment" android:name="com.zlcdgroup.jetpacksample.ui.index.gold.GoldFragment"
+              android:label="gold_fragment" tools:layout="@layout/gold_fragment"/>
+    <fragment android:id="@+id/lotteryFragment"
+              android:name="com.zlcdgroup.jetpacksample.ui.index.lottery.LotteryFragment"
+              android:label="lottery_fragment" tools:layout="@layout/lottery_fragment"/>
+    <fragment android:id="@+id/bookListFragment"
+              android:name="com.zlcdgroup.jetpacksample.ui.index.book.BookListFragment"
+              android:label="book_list_fragment" tools:layout="@layout/book_list_fragment"/>
+    <fragment android:id="@+id/idcardFragment" android:name="com.zlcdgroup.jetpacksample.ui.index.idcrad.IdcardFragment"
+              android:label="idcard_fragment" tools:layout="@layout/idcard_fragment"/>
 
 </navigation>
