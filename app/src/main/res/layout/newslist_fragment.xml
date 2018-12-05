@@ -16,11 +16,12 @@
                   android:textColor="@color/white"
                   android:gravity="center"
                   android:textStyle="bold"
-                  android:text="@{viewmodel.newsTypeTitle}"/>
+                  android:text="@={viewmodel.newsTypeTitle}"/>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/refreshLayout"
                 android:layout_width="match_parent"
+                setRefreshState="@{viewmodel.refreshState}"
                 android:layout_height="match_parent">
 
             <com.zlcdgroup.jetpacksample.app.widget.SuperRecycleView

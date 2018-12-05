@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +17,6 @@ import com.zlcdgroup.jetpacksample.net.Http
 import com.zlcdgroup.jetpacksample.ui.index.news.adapter.NewsListAdapter
 import com.zlcdgroup.jetpacksample.ui.index.news.data.NewsRepository
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.newslist_fragment.*
 import org.jetbrains.anko.support.v4.toast
 
 /**
@@ -59,22 +57,7 @@ class NewsListFragment : Fragment() {
         viewModel.newsList.observe(this, Observer { list ->
             if (list != null) {
                 adapter.submitList(list)
-            }
-        })
-
-        viewModel.refreshState.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                when (viewModel.refreshState.get()) {
-                    0 -> {
-                        refreshLayout.isRefreshing = false
-                    }
-                    1 -> {
-                        refreshLayout.isRefreshing = true
-                    }
-                    2 -> {
-                        refreshLayout.isRefreshing = false
-                    }
-                }
+                viewModel.refreshState.set(System.currentTimeMillis().toInt())
             }
         })
 
@@ -101,8 +84,9 @@ class NewsListFragment : Fragment() {
             //            toast("下拉刷新")
             Http.createAPI().toutiao(newsType!!).subscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
-                .subscribe { response ->
-                    viewModel.refreshState.set(0)
+                .subscribe({ response ->
+
+                    viewModel.refreshState.set(System.currentTimeMillis().toInt())
 
                     if (response.error_code != 0) {
                         //toast是系统处理的，可以不和生命周期处理，其他的提示信息就要慎重，避免溢出
@@ -112,7 +96,7 @@ class NewsListFragment : Fragment() {
                     response.result?.data?.let {
                         repository.insertAll(it)
                     }
-                }
+                }, Throwable::printStackTrace)
         }
         return binding.root
     }

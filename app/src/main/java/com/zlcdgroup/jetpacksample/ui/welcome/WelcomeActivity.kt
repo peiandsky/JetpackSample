@@ -15,7 +15,7 @@ import org.jetbrains.anko.startActivity
  */
 class WelcomeActivity : BaseActivity() {
     //欢迎界面停留时间
-    private val waitTimeMills: Long = 2000
+    private val waitTimeMills: Long = 1000
 
     private lateinit var viewModel: WelcomeViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
