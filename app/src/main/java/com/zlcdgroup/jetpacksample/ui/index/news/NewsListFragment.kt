@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ import com.zlcdgroup.jetpacksample.net.Http
 import com.zlcdgroup.jetpacksample.ui.index.news.adapter.NewsListAdapter
 import com.zlcdgroup.jetpacksample.ui.index.news.data.NewsRepository
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.newslist_fragment.*
 import org.jetbrains.anko.support.v4.toast
 
 /**
@@ -60,6 +62,22 @@ class NewsListFragment : Fragment() {
             }
         })
 
+        viewModel.refreshState.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                when (viewModel.refreshState.get()) {
+                    0 -> {
+                        refreshLayout.isRefreshing = false
+                    }
+                    1 -> {
+                        refreshLayout.isRefreshing = true
+                    }
+                    2 -> {
+                        refreshLayout.isRefreshing = false
+                    }
+                }
+            }
+        })
+
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             var lastVisibleItem = 0
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -67,7 +85,7 @@ class NewsListFragment : Fragment() {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                     if (lastVisibleItem + 1 == layoutManager.itemCount) {
-                        toast("上拉加载更多")
+//                        toast("上拉加载更多")
                     }
                 }
             }
@@ -83,13 +101,15 @@ class NewsListFragment : Fragment() {
             //            toast("下拉刷新")
             Http.createAPI().toutiao(newsType!!).subscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
-                .subscribe {
-                    if (it.error_code != 0) {
+                .subscribe { response ->
+                    viewModel.refreshState.set(0)
+
+                    if (response.error_code != 0) {
                         //toast是系统处理的，可以不和生命周期处理，其他的提示信息就要慎重，避免溢出
-                        toast(it.reason ?: "服务器数据返回异常")
+                        toast(response.reason ?: "服务器数据返回异常")
                         return@subscribe
                     }
-                    it.result?.data?.let {
+                    response.result?.data?.let {
                         repository.insertAll(it)
                     }
                 }
