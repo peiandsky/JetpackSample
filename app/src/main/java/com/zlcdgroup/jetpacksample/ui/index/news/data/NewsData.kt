@@ -31,7 +31,7 @@ class NewsData : Serializable {
     var thumbnail_pic_s03: String? = null
 }
 
-class NewsListResponseResult(var stat: String, var data: List<NewsData>)
+class NewsListResponseResult(var stat: String, var data: List<NewsData>?)
 
 
-class NewsListResponse(var error_code: Int, var reason: String, var result: NewsListResponseResult)
+class NewsListResponse(var error_code: Int, var reason: String?, var result: NewsListResponseResult?)

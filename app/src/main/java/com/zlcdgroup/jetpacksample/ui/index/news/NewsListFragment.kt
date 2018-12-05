@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zlcdgroup.jetpacksample.R
 import com.zlcdgroup.jetpacksample.databinding.NewslistFragmentBinding
 import com.zlcdgroup.jetpacksample.db.AppDatabase
+import com.zlcdgroup.jetpacksample.net.Http
 import com.zlcdgroup.jetpacksample.ui.index.news.adapter.NewsListAdapter
 import com.zlcdgroup.jetpacksample.ui.index.news.data.NewsRepository
+import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.support.v4.toast
 
 /**
@@ -33,8 +35,8 @@ class NewsListFragment : Fragment() {
         val newsType = arguments?.getString("newsType")
         val newsTypeTitle = arguments?.getString("newsTypeTitle")
 
-
-        val factory = NewsListViewModelFactory(NewsRepository(AppDatabase.instance))
+        val repository = NewsRepository(AppDatabase.instance)
+        val factory = NewsListViewModelFactory(repository, newsTypeTitle!!)
         val viewModel = ViewModelProviders.of(this, factory).get(NewsListViewModel::class.java)
         viewModel.newsType.set(newsType)
         viewModel.newsTypeTitle.set(newsTypeTitle)
@@ -78,9 +80,20 @@ class NewsListFragment : Fragment() {
         })
 
         binding.refreshLayout.setOnRefreshListener {
-            toast("下拉刷新")
+            //            toast("下拉刷新")
+            Http.createAPI().toutiao(newsType!!).subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
+                .subscribe {
+                    if (it.error_code != 0) {
+                        //toast是系统处理的，可以不和生命周期处理，其他的提示信息就要慎重，避免溢出
+                        toast(it.reason ?: "服务器数据返回异常")
+                        return@subscribe
+                    }
+                    it.result?.data?.let {
+                        repository.insertAll(it)
+                    }
+                }
         }
-
         return binding.root
     }
 

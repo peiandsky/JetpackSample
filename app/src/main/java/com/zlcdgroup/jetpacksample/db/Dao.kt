@@ -9,8 +9,8 @@ import com.zlcdgroup.jetpacksample.ui.index.news.data.NewsData
 
 @Dao
 interface NewsDataDao {
-    @Query("select * from newsdata order by date desc")
-    fun getNewsDataList(): LiveData<List<NewsData>>
+    @Query("select * from newsdata where category=:category order by date desc")
+    fun getNewsDataList(category: String): LiveData<List<NewsData>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(newsDataList: List<NewsData>)

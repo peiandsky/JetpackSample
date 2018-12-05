@@ -16,7 +16,7 @@ class NewsListNaviActivity : AppCompatActivity() {
         setContentView(R.layout.news_list_navi_activity)
 
         val newsTypeList = listOf("guonei", "guoji", "yule", "keji", "caijing")
-        val newsTypeTitle = listOf("国内新闻", "国际新闻", "娱乐新闻", "科技新闻", "财经新闻")
+        val newsTypeTitle = listOf("国内", "国际", "娱乐", "科技", "财经")
 
         val fragmentList = LinkedList<NewsListFragment>()
         for (index in 0 until newsTypeList.size step 1) {

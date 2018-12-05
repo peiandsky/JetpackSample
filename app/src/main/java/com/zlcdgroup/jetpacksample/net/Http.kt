@@ -14,9 +14,9 @@ import java.util.concurrent.TimeUnit
 object Http {
     //设置超时时间，不要设置过长，避免不良体验
     const val timeout = 10L
-    private const val serverUrl = ""
+    private const val serverUrl = "http://v.juhe.cn/"
 
-    private fun createAPI(): API {
+     fun createAPI(): API {
         val okBuilder = OkHttpClient.Builder()
         if (BuildConfig.DEBUG) {
             val httpLoggingInterceptor = HttpLoggingInterceptor()
