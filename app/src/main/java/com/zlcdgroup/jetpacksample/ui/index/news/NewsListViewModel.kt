@@ -17,16 +17,20 @@ class NewsListViewModel(private val repository: NewsRepository) : ViewModel() {
     val newsType = ObservableField<String>()
     val newsTypeTitle = ObservableField<String>()
 
-    val newsTypeLiveData: MutableLiveData<String> = MutableLiveData()
+//    val newsTypeLiveData: MutableLiveData<String> = MutableLiveData()
 
-    var newsList: LiveData<List<NewsData>> = Transformations.map(newsTypeLiveData) {
+//    var newsList: LiveData<List<NewsData>> = Transformations.map(newsTypeLiveData) {
+//
+//        val temp = repository.getNewsDataList(newsTypeTitle.get() ?: "国内").value
+//        if (BuildConfig.DEBUG) {
+//            println("Transformations:newsList${temp?.size}")
+//        }
+//        temp
+//    }
 
-        val temp = repository.getNewsDataList(newsTypeTitle.get() ?: "国内").value
-        if (BuildConfig.DEBUG) {
-            println("Transformations:newsList${temp?.size}")
-        }
-        temp
-    }
+    val newsListChange=MediatorLiveData<List<NewsData>>()
+
+//    val newsListOrginal=repository.getNewsDataList(newsTypeTitle.get() ?: "国内")
 
 }
 

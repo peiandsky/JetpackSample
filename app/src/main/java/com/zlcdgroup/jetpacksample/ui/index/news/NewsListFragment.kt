@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,9 +17,9 @@ import com.zlcdgroup.jetpacksample.databinding.NewslistFragmentBinding
 import com.zlcdgroup.jetpacksample.db.AppDatabase
 import com.zlcdgroup.jetpacksample.net.Http
 import com.zlcdgroup.jetpacksample.ui.index.news.adapter.NewsListAdapter
+import com.zlcdgroup.jetpacksample.ui.index.news.data.NewsData
 import com.zlcdgroup.jetpacksample.ui.index.news.data.NewsRepository
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.newslist_fragment.*
 import org.jetbrains.anko.support.v4.toast
 
 /**
@@ -32,6 +32,7 @@ class NewsListFragment : Fragment() {
 
     private val newsTypeList = listOf("guonei", "guoji", "yule", "keji", "caijing")
     private val newsTypeTitleList = listOf("国内", "国际", "娱乐", "科技", "财经")
+    private lateinit var newsListLiveData: LiveData<List<NewsData>>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,8 +42,6 @@ class NewsListFragment : Fragment() {
         val repository = NewsRepository(AppDatabase.instance)
         val factory = NewsListViewModelFactory(repository)
         val viewModel = ViewModelProviders.of(this, factory).get(NewsListViewModel::class.java)
-        setNewsType(viewModel, 0)
-
 
         val binding =
             DataBindingUtil.inflate<NewslistFragmentBinding>(inflater, R.layout.newslist_fragment, container, false)
@@ -54,7 +53,8 @@ class NewsListFragment : Fragment() {
 
         binding.recyclerView.adapter = adapter
 
-        viewModel.newsList.observe(this, Observer { list ->
+
+        viewModel.newsListChange.observe(this, Observer { list ->
             if (list != null) {
                 adapter.submitList(list)
                 if (BuildConfig.DEBUG) {
@@ -65,9 +65,15 @@ class NewsListFragment : Fragment() {
                     println("adapter.submitList(list)")
                 }
             }
-
             viewModel.refreshState.set(System.currentTimeMillis().toInt())
         })
+
+
+        newsListLiveData = repository.getNewsDataList(newsTypeTitleList[0])
+        viewModel.newsListChange.addSource(newsListLiveData) {
+            viewModel.newsListChange.value = it
+        }
+
 
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             var lastVisibleItem = 0
@@ -105,33 +111,40 @@ class NewsListFragment : Fragment() {
         }
 
         binding.bottomNavView.setOnNavigationItemSelectedListener { item ->
+            var newsTypeIdx = 0
             when (item.itemId) {
                 R.id.news_guonei -> {
-                    setNewsType(viewModel, 0)
+                    newsTypeIdx = 0
                 }
                 R.id.news_guoji -> {
-                    setNewsType(viewModel, 1)
+                    newsTypeIdx = 1
                 }
                 R.id.news_yule -> {
-                    setNewsType(viewModel, 2)
+                    newsTypeIdx = 2
                 }
                 R.id.news_keji -> {
-                    setNewsType(viewModel, 3)
+                    newsTypeIdx = 3
                 }
                 R.id.news_caijing -> {
-                    setNewsType(viewModel, 4)
+                    newsTypeIdx = 4
                 }
             }
+            viewModel.newsType.set(newsTypeList[newsTypeIdx])
+            viewModel.newsTypeTitle.set(newsTypeTitleList[newsTypeIdx])
+//            viewModel.newsTypeLiveData.value = newsTypeTitleList[newsTypeIdx]
+
+
+            viewModel.newsListChange.removeSource(newsListLiveData)
+
+            newsListLiveData = repository.getNewsDataList(newsTypeTitleList[newsTypeIdx])
+            viewModel.newsListChange.addSource(newsListLiveData) {
+                viewModel.newsListChange.value = it
+            }
+
             true
         }
 
         return binding.root
-    }
-
-    private fun setNewsType(viewModel: NewsListViewModel, i: Int) {
-        viewModel.newsType.set(newsTypeList[i])
-        viewModel.newsTypeTitle.set(newsTypeTitleList[i])
-        viewModel.newsTypeLiveData.value = newsTypeTitleList[i]
     }
 
 
