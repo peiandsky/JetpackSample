@@ -6,7 +6,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.afollestad.materialdialogs.MaterialDialog
 import com.zlcdgroup.jetpacksample.R
 import com.zlcdgroup.jetpacksample.app.BaseActivity
 import com.zlcdgroup.jetpacksample.app.util.PreferenceUtil
@@ -20,6 +22,7 @@ import org.jetbrains.anko.toast
 class IndexActivity : BaseActivity() {
     private val userNameKey = "UserName"
 
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.index_activity)
@@ -40,7 +43,7 @@ class IndexActivity : BaseActivity() {
         toggle.syncState()
 
         val hostFragment: NavHostFragment = hostFragmentContainer as NavHostFragment
-        val navController = hostFragment.navController
+        navController = hostFragment.navController
         navController.addOnNavigatedListener { controller, destination -> }
 
         navView.setNavigationItemSelectedListener { item ->
@@ -78,7 +81,21 @@ class IndexActivity : BaseActivity() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+            if (!navController.popBackStack()) {
+                MaterialDialog(this).show {
+                    title(text = "退出")
+                    message(text = "是否退出程序？")
+                    positiveButton(text = "确定") {
+                        finish()
+                    }
+                    negativeButton(text = "点错了") {
+                        dismiss()
+                    }
+                    cancelable(false)
+                }
+            } else {
+//                super.onBackPressed()
+            }
         }
     }
 
