@@ -9,7 +9,7 @@ import com.zlcdgroup.jetpacksample.ui.index.news.data.NewsData
 
 @Dao
 interface NewsDataDao {
-    @Query("select * from newsdata where category=:category order by date desc")
+    @Query("select * from NewsData where category=:category order by date desc")
     fun getNewsDataList(category: String): LiveData<List<NewsData>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

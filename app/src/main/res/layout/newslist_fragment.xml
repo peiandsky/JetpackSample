@@ -22,7 +22,8 @@
                 android:id="@+id/refreshLayout"
                 android:layout_width="match_parent"
                 setRefreshState="@{viewmodel.refreshState}"
-                android:layout_height="match_parent">
+                android:layout_weight="1"
+                android:layout_height="0dp">
 
             <com.zlcdgroup.jetpacksample.app.widget.SuperRecycleView
                     android:id="@+id/recyclerView"
@@ -34,5 +35,14 @@
             />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:background="@color/colorPrimaryDark"
+                app:itemHorizontalTranslationEnabled="false"
+                android:id="@+id/bottomNavView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:labelVisibilityMode="labeled"
+                app:menu="@menu/index_news"/>
     </LinearLayout>
 </layout>

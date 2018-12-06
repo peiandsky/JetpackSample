@@ -21,12 +21,5 @@
     />
 
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:background="@color/colorPrimaryDark"
-            app:itemHorizontalTranslationEnabled="false"
-            android:id="@+id/bottomNavView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:labelVisibilityMode="labeled"
-            app:menu="@menu/index_news"/>
+
 </LinearLayout>
