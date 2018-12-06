@@ -16,13 +16,31 @@
 
 package com.zlcdgroup.jetpacksample.app.util
 
+import android.os.Handler
+import android.os.Looper
 import java.util.concurrent.Executors
 
-val IO_EXECUTOR = Executors.newSingleThreadExecutor()
+object AppExecutors {
 
-/**
- * Utility method to run blocks on a dedicated background thread, used for io/database work.
- */
-fun runOnIoThread(f: () -> Unit) {
-    IO_EXECUTOR.execute(f)
+    val IO_EXECUTOR = Executors.newSingleThreadExecutor()
+
+    val NETWORK_EXECUTOR = Executors.newFixedThreadPool(3)
+
+    val MAIN_THREAD_EXECUTOR = Handler(Looper.getMainLooper())
+
+    /**
+     * Utility method to run blocks on a dedicated background thread, used for io/database work.
+     */
+    fun runOnIoThread(f: () -> Unit) {
+        IO_EXECUTOR.execute(f)
+    }
+
+    fun runOnMainThread(f: () -> Unit) {
+        MAIN_THREAD_EXECUTOR.post(f)
+    }
+
+    fun runOnNetworkThread(f: () -> Unit) {
+        NETWORK_EXECUTOR.execute(f)
+    }
+
 }
