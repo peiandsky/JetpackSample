@@ -39,11 +39,15 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <FrameLayout
-                android:id="@+id/fragmentContainer"
+        <fragment
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".ui.index.IndexActivity"/>
+                android:id="@+id/hostFragmentContainer"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                app:navGraph="@navigation/news_navi_graph"
+                app:defaultNavHost="true"
+        />
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"

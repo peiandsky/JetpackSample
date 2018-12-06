@@ -7,19 +7,15 @@
         android:orientation="vertical"
         android:layout_height="match_parent">
 
-    <!--<androidx.viewpager.widget.ViewPager-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:id="@+id/viewpager"-->
-    <!--/>-->
-    <FrameLayout
+
+    <fragment
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:id="@+id/frameLayout"
+            android:id="@+id/my_nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            app:navGraph="@navigation/news_navi_graph"
+            app:defaultNavHost="true"
     />
-
-
 
 </LinearLayout>
