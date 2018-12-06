@@ -57,8 +57,16 @@ class NewsListNaviActivity : AppCompatActivity() {
 
     private fun replaceFrameLayout(newsListFragment: NewsListFragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frameLayout, newsListFragment)
-        transaction.commit()
+        for (fragment in supportFragmentManager.fragments) {
+            transaction.hide(fragment)
+        }
+
+        if (newsListFragment.isAdded) {
+            transaction.show(newsListFragment).commit()
+        } else {
+            transaction.add(R.id.frameLayout, newsListFragment).commit()
+        }
+
     }
 
 }
