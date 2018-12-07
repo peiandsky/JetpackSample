@@ -34,17 +34,12 @@ class IndexActivity : BaseActivity() {
         fab.setOnClickListener {
             toast("反馈建议")
         }
-//        val toggle = ActionBarDrawerToggle(
-//            this@IndexActivity, drawerLayout, toolbar,
-//            R.string.navigation_drawer_open,
-//            R.string.navigation_drawer_close
-//        )
-//        drawerLayout.addDrawerListener(toggle)
-//        toggle.syncState()
+
 
         val hostFragment: NavHostFragment = hostFragmentContainer as NavHostFragment
         navController = hostFragment.navController
         navController.addOnNavigatedListener { controller, destination -> }
+
 
         navView.setNavigationItemSelectedListener { item ->
 
@@ -81,19 +76,20 @@ class IndexActivity : BaseActivity() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            if (!navController.popBackStack()) {
-                MaterialDialog(this).show {
-                    title(text = "退出")
-                    message(text = "是否退出程序？")
-                    positiveButton(text = "确定") {
-                        finish()
-                    }
-                    negativeButton(text = "点错了") {
-                        dismiss()
-                    }
-                    cancelable(false)
-                }
-            }
+//            if (!navController.popBackStack()) {
+//                MaterialDialog(this).show {
+//                    title(text = "退出")
+//                    message(text = "是否退出程序？")
+//                    positiveButton(text = "确定") {
+//                        finish()
+//                    }
+//                    negativeButton(text = "点错了") {
+//                        dismiss()
+//                    }
+//                    cancelable(false)
+//                }
+//            }
+            super.onBackPressed()
         }
     }
 

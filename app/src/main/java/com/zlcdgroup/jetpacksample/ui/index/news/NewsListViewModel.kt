@@ -14,8 +14,8 @@ class NewsListViewModel(private val repository: NewsRepository) : ViewModel() {
      * 2：表示隐藏
      */
     val refreshState = ObservableInt(0)
-    val newsType = ObservableField<String>()
-    val newsTypeTitle = ObservableField<String>()
+    val newsType = ObservableField<String>("guonei")
+    val newsTypeTitle = ObservableField<String>("国内")
 
 //    val newsTypeLiveData: MutableLiveData<String> = MutableLiveData()
 
@@ -28,7 +28,7 @@ class NewsListViewModel(private val repository: NewsRepository) : ViewModel() {
 //        temp
 //    }
 
-    val newsListChange=MediatorLiveData<List<NewsData>>()
+    val newsListChange = MediatorLiveData<List<NewsData>>()
 
 //    val newsListOrginal=repository.getNewsDataList(newsTypeTitle.get() ?: "国内")
 

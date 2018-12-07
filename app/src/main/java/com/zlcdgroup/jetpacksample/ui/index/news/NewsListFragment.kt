@@ -71,8 +71,8 @@ class NewsListFragment : Fragment() {
         })
 
 
-        newsListLiveData = repository.getNewsDataList(newsTypeTitleList[0])
-        viewModel.newsTypeTitle.set(newsTypeTitleList[0])
+        newsListLiveData = repository.getNewsDataList(viewModel.newsTypeTitle.get()?:"国内")
+//        viewModel.newsTypeTitle.set(newsTypeTitleList[0])
         viewModel.newsListChange.addSource(newsListLiveData) {
             viewModel.newsListChange.value = it
         }
