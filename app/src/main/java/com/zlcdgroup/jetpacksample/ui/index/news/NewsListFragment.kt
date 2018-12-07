@@ -74,6 +74,7 @@ class NewsListFragment : Fragment() {
 
 
         newsListLiveData = repository.getNewsDataList(newsTypeTitleList[0])
+        viewModel.newsTypeTitle.set(newsTypeTitleList[0])
         viewModel.newsListChange.addSource(newsListLiveData) {
             viewModel.newsListChange.value = it
         }
@@ -135,7 +136,6 @@ class NewsListFragment : Fragment() {
             }
             viewModel.newsType.set(newsTypeList[newsTypeIdx])
             viewModel.newsTypeTitle.set(newsTypeTitleList[newsTypeIdx])
-//            viewModel.newsTypeLiveData.value = newsTypeTitleList[newsTypeIdx]
 
 
             viewModel.newsListChange.removeSource(newsListLiveData)
