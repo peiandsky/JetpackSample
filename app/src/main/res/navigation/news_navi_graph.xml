@@ -6,7 +6,10 @@
             app:startDestination="@id/newsListFragment">
     <fragment android:id="@+id/newsListFragment"
               android:name="com.zlcdgroup.jetpacksample.ui.index.news.NewsListFragment"
-              android:label="NewsListFragment"/>
+              android:label="NewsListFragment">
+        <action android:id="@+id/action_newsListFragment_to_newsDetailFragment"
+                app:destination="@id/newsDetailFragment"/>
+    </fragment>
     <fragment android:id="@+id/newsDetailFragment"
               android:name="com.zlcdgroup.jetpacksample.ui.index.news.NewsDetailFragment"
               android:label="NewsDetailFragment">

@@ -26,7 +26,7 @@ class IndexActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.index_activity)
-        setSupportActionBar(toolbar)
+//        setSupportActionBar(toolbar)
 
         val view = navView.inflateHeaderView(R.layout.index_nav_header)
         view.find<TextView>(R.id.username).text = PreferenceUtil.getSpString(userNameKey, "")
@@ -34,13 +34,13 @@ class IndexActivity : BaseActivity() {
         fab.setOnClickListener {
             toast("反馈建议")
         }
-        val toggle = ActionBarDrawerToggle(
-            this@IndexActivity, drawerLayout, toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
+//        val toggle = ActionBarDrawerToggle(
+//            this@IndexActivity, drawerLayout, toolbar,
+//            R.string.navigation_drawer_open,
+//            R.string.navigation_drawer_close
+//        )
+//        drawerLayout.addDrawerListener(toggle)
+//        toggle.syncState()
 
         val hostFragment: NavHostFragment = hostFragmentContainer as NavHostFragment
         navController = hostFragment.navController
@@ -93,8 +93,6 @@ class IndexActivity : BaseActivity() {
                     }
                     cancelable(false)
                 }
-            } else {
-//                super.onBackPressed()
             }
         }
     }

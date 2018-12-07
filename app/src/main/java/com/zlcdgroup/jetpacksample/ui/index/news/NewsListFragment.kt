@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zlcdgroup.jetpacksample.BuildConfig
@@ -48,7 +50,9 @@ class NewsListFragment : Fragment() {
         binding.viewmodel = viewModel
 
         val adapter = NewsListAdapter(itemClick = { data, pos ->
-
+            val bundle = Bundle()
+            bundle.putString("newsUrl", data.url)
+            NavHostFragment.findNavController(this).navigate(R.id.newsDetailFragment, bundle)
         })
 
         binding.recyclerView.adapter = adapter

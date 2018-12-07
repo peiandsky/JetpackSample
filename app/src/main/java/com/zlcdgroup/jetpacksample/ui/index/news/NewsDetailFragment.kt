@@ -1,12 +1,15 @@
 package com.zlcdgroup.jetpacksample.ui.index.news
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebChromeClient
+import android.webkit.WebSettings
+import androidx.databinding.DataBindingUtil
 import com.zlcdgroup.jetpacksample.R
+import com.zlcdgroup.jetpacksample.databinding.NewsDetailFragmentBinding
 
 class NewsDetailFragment : Fragment() {
 
@@ -14,19 +17,38 @@ class NewsDetailFragment : Fragment() {
         fun newInstance() = NewsDetailFragment()
     }
 
-    private lateinit var viewModel: NewsDetailViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.news_detail_fragment, container, false)
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(NewsDetailViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+        val newsUrl = arguments?.getString("newsUrl")
 
+        val binding = DataBindingUtil.inflate<NewsDetailFragmentBinding>(
+            inflater,
+            R.layout.news_detail_fragment, container, false
+        )
+
+        binding.newsWebView.run {
+            settings.javaScriptEnabled = true
+            settings.allowContentAccess = true
+            settings.allowFileAccess = true
+            settings.builtInZoomControls = true
+            settings.setAppCacheEnabled(true)
+            settings.domStorageEnabled = true
+            settings.supportMultipleWindows()
+            settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.NARROW_COLUMNS
+            settings.useWideViewPort = true
+            settings.javaScriptCanOpenWindowsAutomatically = true
+            settings.loadsImagesAutomatically = true
+            webChromeClient = WebChromeClient()
+
+            loadUrl(newsUrl)
+        }
+
+
+
+
+        return binding.root
+    }
 }
