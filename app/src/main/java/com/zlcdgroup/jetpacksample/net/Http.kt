@@ -14,9 +14,7 @@ import java.util.concurrent.TimeUnit
 object Http {
     //设置超时时间，不要设置过长，避免不良体验
     const val timeout = 10L
-    private const val serverUrl = "http://v.juhe.cn/"
-
-     fun createAPI(): API {
+     inline fun <reified T> createAPI(baseUrl:String): T {
         val okBuilder = OkHttpClient.Builder()
         if (BuildConfig.DEBUG) {
             val httpLoggingInterceptor = HttpLoggingInterceptor()
@@ -33,12 +31,12 @@ object Http {
             .retryOnConnectionFailure(false)
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(serverUrl)
+            .baseUrl(baseUrl)
             .client(okBuilder.build())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(FastJsonConverterFactory())
             .build()
 
-        return retrofit.create(API::class.java)
+        return retrofit.create(T::class.java)
     }
 }

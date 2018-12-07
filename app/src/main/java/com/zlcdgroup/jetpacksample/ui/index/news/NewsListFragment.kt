@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,11 +16,10 @@ import com.zlcdgroup.jetpacksample.BuildConfig
 import com.zlcdgroup.jetpacksample.R
 import com.zlcdgroup.jetpacksample.databinding.NewslistFragmentBinding
 import com.zlcdgroup.jetpacksample.db.AppDatabase
-import com.zlcdgroup.jetpacksample.net.Http
 import com.zlcdgroup.jetpacksample.ui.index.news.adapter.NewsListAdapter
+import com.zlcdgroup.jetpacksample.ui.index.news.data.NewsApiMethod
 import com.zlcdgroup.jetpacksample.ui.index.news.data.NewsData
 import com.zlcdgroup.jetpacksample.ui.index.news.data.NewsRepository
-import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.support.v4.toast
 
 /**
@@ -100,19 +98,19 @@ class NewsListFragment : Fragment() {
         })
 
         binding.refreshLayout.setOnRefreshListener {
-            //            toast("下拉刷新")
-            Http.createAPI().toutiao(viewModel.newsType.get() ?: "guonei").subscribeOn(Schedulers.io())
-                .subscribeOn(Schedulers.io())
-                .subscribe({ response ->
-                    if (response.error_code != 0) {
-                        //toast是系统处理的，可以不和生命周期处理，其他的提示信息就要慎重，避免溢出
-                        toast(response.reason ?: "服务器数据返回异常")
-                        return@subscribe
-                    }
-                    response.result?.data?.let {
-                        repository.insertAll(it)
-                    }
-                }, Throwable::printStackTrace)
+            NewsApiMethod.getNews(viewModel.newsType.get() ?: "guonei", { resp ->
+                if (resp.error_code != 0) {
+                    //toast是系统处理的，可以不和生命周期处理，其他的提示信息就要慎重，避免溢出
+                    toast(resp.reason ?: "服务器数据返回异常")
+                    return@getNews
+                }
+                resp.result?.data?.let {
+                    repository.insertAll(it)
+                }
+
+            }, {
+                toast("服务器或网络出现错误")
+            })
         }
 
         binding.bottomNavView.setOnNavigationItemSelectedListener { item ->
