@@ -34,6 +34,7 @@ class NewsListViewModel(private val repository: NewsRepository) : ViewModel() {
 
 }
 
+@Suppress("UNCHECKED_CAST")
 class NewsListViewModelFactory(private val repository: NewsRepository) :
     ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

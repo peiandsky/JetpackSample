@@ -26,7 +26,7 @@ class NewsData : Serializable {
 
     @ColumnInfo(name = "thumbnail_pic_s02")
     var thumbnail_pic_s02: String? = null
-    
+
     @ColumnInfo(name = "thumbnail_pic_s03")
     var thumbnail_pic_s03: String? = null
 }
@@ -34,4 +34,4 @@ class NewsData : Serializable {
 class NewsListResponseResult(var stat: String, var data: List<NewsData>?)
 
 
-class NewsListResponse(var error_code: Int, var reason: String?, var result: NewsListResponseResult?)
+//class NewsListResponse : JuHeApiResponse<NewsListResponseResult>()

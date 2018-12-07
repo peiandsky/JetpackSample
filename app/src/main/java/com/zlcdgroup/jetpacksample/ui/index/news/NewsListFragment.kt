@@ -49,7 +49,7 @@ class NewsListFragment : Fragment() {
             DataBindingUtil.inflate<NewslistFragmentBinding>(inflater, R.layout.newslist_fragment, container, false)
         binding.viewmodel = viewModel
 
-        val adapter = NewsListAdapter(itemClick = { data, pos ->
+        val adapter = NewsListAdapter(itemClick = { data, _ ->
             val bundle = Bundle()
             bundle.putString("newsUrl", data.url)
             NavHostFragment.findNavController(this).navigate(R.id.newsDetailFragment, bundle)
